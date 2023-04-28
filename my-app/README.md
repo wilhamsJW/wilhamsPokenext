@@ -1,6 +1,8 @@
 # PokeNext
 Here we will find a project with Next.js
 
+# This project is the same as that [pokemon](https://github.com/wilhamsJW/pokeNext)
+
 ## Commands used in installation
 
 1. npx create-next-app .
