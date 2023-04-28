@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import Link from 'next/link'
 
-import styles from '../styles/Card.module.css'
+import styles from '../src/styles/Card.module.css'
 
 // o link da imagem foi adicionado em next config, para que o next entenda e permita q se trata de uma imagem externa
 
