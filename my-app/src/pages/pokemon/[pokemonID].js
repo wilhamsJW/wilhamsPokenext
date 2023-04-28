@@ -2,6 +2,8 @@ import Image from "next/image";
 
 import styles from "../../styles/Pokemon.module.css";
 
+import Link from 'next/link'
+
 // Faz mapeamento geral dos dados
 // estou passando todos os meus paths para função para q possa pré renderizar
 export const getStaticPaths = async () => {
@@ -57,6 +59,7 @@ export default function Pokemon({ data }) {
         <h3>Número:</h3>
         <p>#&nbsp;&nbsp;{data.id}</p>
       </div>
+
       <div>
         <h3>Tipo:</h3>
         <div className={styles.types_container}>
@@ -67,7 +70,7 @@ export default function Pokemon({ data }) {
               className={`${styles.type} ${styles["type_" + e.type.name]}`}
             >
               &nbsp;{e.type.name}
-               {/** passei duas classes na mesma tag, a primeira sempre vai ser usada e a segunda só vai ser usada se houver o dado q vem da API, a segunda class apenas
+              {/** passei duas classes na mesma tag, a primeira sempre vai ser usada e a segunda só vai ser usada se houver o dado q vem da API, a segunda class apenas
                 irá alterar o background-color para q o tipo de cada pokemon fique de acordo com sua respctiva cor */}
             </span>
           ))}
@@ -84,6 +87,8 @@ export default function Pokemon({ data }) {
             <p>{data.weight / 10} kg</p>
           </div>
         </div>
+
+        <Link href={'/'} className={styles.back}>Back</Link>
 
       </div>
     </div> // end
