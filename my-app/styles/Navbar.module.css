@@ -1,0 +1,43 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 2em;
+    margin-bottom: 2em;
+    background-color: #333;
+    color: #fff
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo h1 {
+    margin-left: .5em;
+}
+
+.link_items {
+    display: flex;
+    list-style: none;
+}
+
+.link_items li {
+    margin-right: 1.3em;
+}
+
+/** .link_items a -> colocado o a pq é o Link q é o a, se colocar o link o css não funciona  */
+.link_items a { 
+    color: #fff;
+    text-decoration: none;
+    padding: 5px;
+    transition: .6s;
+    border-bottom: 2px solid transparent;
+}
+
+/** border inicia trasnparent depois q passo o mouse com hover ela aparece lentamente */
+.link_items a:hover {
+    border-bottom: 2px solid #fff;
+    font-size: 1.01em;
+}
