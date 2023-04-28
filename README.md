@@ -8,7 +8,7 @@ Here we will find a project with Next.js
 ### Installed dependencies
 
 <p align="center">
-  <img src="my_app/dependencies-instaled.png" width="600px">
+  <img src="my_app/public/dependencies-instaled.png" width="600px">
 </p>
 
 #### Observation: https://github.com/wilhamsJW/pokeNext/commit/ca8a5f691c49fa754d3ef41505d574be6d9f47e4
@@ -33,11 +33,11 @@ we add DNS since we are using external server
    O vercel irá identificar seus projetos e aparecerá nessa tela (click em import):
 
   <p align="center">
-    <img src="my_app/vercel01.png" width="400px">
+    <img src="my_app/public/vercel01.png" width="400px">
   </p>
 
   3. Irá aparecer esta tela (click em deploy) (Irá ser feito o build, runnig checks e irá no dá um DNS)
 
   <p align="center">
-    <img src="my_app/my_app/vercel02.png" width="400px">
+    <img src="my_app/public/vercel02.png" width="400px">
   </p>
