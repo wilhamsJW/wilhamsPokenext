@@ -1,38 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PokeNext
+Here we will find a project with Next.js
 
-## Getting Started
+## Commands used in installation
 
-First, run the development server:
+1. npx create-next-app .
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### Installed dependencies
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<p align="center">
+  <img src="public/dependencies-instaled.png" width="600px">
+</p>
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+#### Observation: https://github.com/wilhamsJW/pokeNext/commit/ca8a5f691c49fa754d3ef41505d574be6d9f47e4
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+we add DNS since we are using external server
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Como foi criado a pasta dinâmica?
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Crie uma pasta dentro de pages, a que criamos foi a pasta 'pokemon'
 
-## Learn More
+2. Dentro da pasta criada crie uma arquivo com esta sintaxe `[pokemonID].js` deve haver [] ao redor do nome
 
-To learn more about Next.js, take a look at the following resources:
+`IMPORTANTE:` No arquivo `card.js` temos essa parte da linha de código:
+   ##### href={`/pokemon/${pokemon.id}`}>Detalhes...
+   este `/pokemon/${pokemon.id}` se refere a pasta criada dentro de pages chamada `pokemon` que dentro dela colocamos o que foi descrito no passo `2`, dessa forma o `Next.js` já entende que se trata de rotas dinãmicas e irá atuar para que a mágica aconteça
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ### How to Deploy?
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   1. npm run build 
 
-## Deploy on Vercel
+   2. Próximo passo é criar uma conta na `vercel` após criar ela, continue com github q fica mais fácil a importação
+   O vercel irá identificar seus projetos e aparecerá nessa tela (click em import):
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  <p align="center">
+    <img src="public/vercel01.png" width="400px">
+  </p>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  3. Irá aparecer esta tela (click em deploy) (Irá ser feito o build, runnig checks e irá no dá um DNS)
+
+  <p align="center">
+    <img src="public/vercel02.png" width="400px">
+  </p>
