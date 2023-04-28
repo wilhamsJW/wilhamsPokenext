@@ -1,6 +1,12 @@
 # PokeNext
 Here we will find a project with Next.js
 
+# This is the same project as this [PROJETO](https://github.com/wilhamsJW/pokeNext) His commits are very well organized
+
+## [Project Link](https://wilhams-pokenext-5sbfubmmv-wilhamsdev-gmailcom.vercel.app/)
+
+## [See the prject on the site](https://wilhams-pokenext-5sbfubmmv-wilhamsdev-gmailcom.vercel.app/)
+
 ## Commands used in installation
 
 1. npx create-next-app .
