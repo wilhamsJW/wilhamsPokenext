@@ -41,8 +41,6 @@ export const getStaticProps = async (context) => {
 
 export default function Pokemon({ data }) {
   // Next automaticamente entende que esse parâmetro é da função getStaticProps()
-  console.log("data:", data);
-
   return (
     <div className={styles.pokemon_container}>
       <h1 className={styles.title}>{data.name}</h1>
