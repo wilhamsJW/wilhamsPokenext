@@ -2,7 +2,9 @@ import Image from "next/image";
 
 import styles from "../../styles/Pokemon.module.css";
 
-import Link from 'next/link'
+import Link from "next/link";
+
+import { useRouter } from "next/router";
 
 // Faz mapeamento geral dos dados
 // estou passando todos os meus paths para função para q possa pré renderizar
@@ -24,13 +26,14 @@ export const getStaticPaths = async () => {
   return {
     paths,
     //fallback: false /** é padrão do next.js porém pode ser usado como true, veja documentação */,
-    fallback: true /** Agora estou usando como true pq quero pegar dados da API não renderizado
-    * para que o site não fique tão lento adicionei um limit no endpoint de 180 elementos e esses
-    * serão os dados pré renderizados e não demora a carregar para o usuário ver, porém existem mais páginas no site,
-    * para fazer com que eles apareçam apenas quando solicitadas eu configuro fallback para true e desta forma consigo pegar qq elemento vindo da API
-    * 
-    * Com fallback: false só é permitido pegar 180 elementos, se eu tentar colocar na url 181 irá retornar 404 página de erro
-    */,
+    fallback: true
+    /** Agora estou usando como true pq quero pegar dados da API não renderizado
+     * para que o site não fique tão lento adicionei um limit no endpoint de 180 elementos e esses
+     * serão os dados pré renderizados e não demora a carregar para o usuário ver, porém existem mais páginas no site,
+     * para fazer com que eles apareçam apenas quando solicitadas eu configuro fallback para true e desta forma consigo pegar qq elemento vindo da API
+     *
+     * Com fallback: false só é permitido pegar 180 elementos, se eu tentar colocar na url 181 irá retornar 404 página de erro
+     */,
   };
 };
 
@@ -49,9 +52,15 @@ export const getStaticProps = async (context) => {
 };
 
 export default function Pokemon({ data }) {
+
   // Next automaticamente entende que esse parâmetro é da função getStaticProps()
   return (
-    <div className={styles.pokemon_container}>
+    <>
+    {/** Adicionamos esse if em conjunto com fallaback true para buscar dados nao renderizados
+     * We add this if in conjunction with fallaback true to fetch unrendered data */}
+    {useRouter().isFallback && (<div className={styles.loading}><div className={styles.loadingAux}></div></div>)}
+
+    {!useRouter().isFallback && <div className={styles.pokemon_container}>
       <h1 className={styles.title}>{data.name}</h1>
       <Image
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png`}
@@ -78,7 +87,6 @@ export default function Pokemon({ data }) {
               {/** passei duas classes na mesma tag, a primeira sempre vai ser usada e a segunda só vai ser usada se houver o dado q vem da API, a segunda class apenas
                 irá alterar o background-color para q o tipo de cada pokemon fique de acordo com sua respctiva cor */}
             </span>
-
           ))}
         </div>
 
@@ -94,9 +102,11 @@ export default function Pokemon({ data }) {
           </div>
         </div>
 
-        <Link href={'/'} className={styles.back}>Back</Link>
-
+        <Link href={"/"} className={styles.back}>
+          Back
+        </Link>
       </div>
-    </div> // end
+    </div>}
+    </>
   );
 }
