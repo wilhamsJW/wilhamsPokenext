@@ -7,11 +7,11 @@ import Link from 'next/link'
 // Faz mapeamento geral dos dados
 // estou passando todos os meus paths para função para q possa pré renderizar
 export const getStaticPaths = async () => {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=251`);
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=180`);
   const data = await res.json();
 
   // params
-  const paths = data.results.map((pokemon, i) => {
+  const paths = data.results.map((e, i) => {
     return {
       params: { pokemonID: (i + 1).toString() },
       /** Definindo o ID que irei passar como path, coloquei i+1 pq o array
@@ -23,7 +23,14 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false /** é padrão do next.js porém pode ser usado como true, veja documentação */,
+    //fallback: false /** é padrão do next.js porém pode ser usado como true, veja documentação */,
+    fallback: true /** Agora estou usando como true pq quero pegar dados da API não renderizado
+    * para que o site não fique tão lento adicionei um limit no endpoint de 180 elementos e esses
+    * serão os dados pré renderizados e não demora a carregar para o usuário ver, porém existem mais páginas no site,
+    * para fazer com que eles apareçam apenas quando solicitadas eu configuro fallback para true e desta forma consigo pegar qq elemento vindo da API
+    * 
+    * Com fallback: false só é permitido pegar 180 elementos, se eu tentar colocar na url 181 irá retornar 404 página de erro
+    */,
   };
 };
 
