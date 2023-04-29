@@ -138,3 +138,35 @@
     letter-spacing: .1rem;
     text-decoration: none; /** remove o traço embaixo do texto gerado pelo link */
   }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: .9em;
+    margin: 0.8em auto; /** Isso é que centraliza o elemento */
+    width: 12%;
+    border-radius: .3em;
+    font-size: 1.7rem;
+    letter-spacing: .1rem;
+    transform: scale(5);
+    min-height: 50vh; /** vai ocupar auma largura da página de 50vh, só funcionará para tablets, para celular precisa adicionar  */
+  }
+
+  .loadingAux {     
+      animation: is-rotating 1s infinite;
+      border: 6px solid #e5e5e5;
+      border-radius: 50%;
+      border-top-color: #51d4db;
+      height: 50px;
+      width: 50px;
+  }
+
+  @keyframes is-rotating {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  /** credit's animation: https://desenvolvimentoparaweb.com/css/animacao-loading-css/ */
