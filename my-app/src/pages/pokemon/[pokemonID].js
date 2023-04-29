@@ -43,8 +43,6 @@ export const getStaticProps = async (context) => {
 
 export default function Pokemon({ data }) {
   // Next automaticamente entende que esse parâmetro é da função getStaticProps()
-  console.log("data:", data);
-
   return (
     <div className={styles.pokemon_container}>
       <h1 className={styles.title}>{data.name}</h1>
@@ -73,7 +71,7 @@ export default function Pokemon({ data }) {
               {/** passei duas classes na mesma tag, a primeira sempre vai ser usada e a segunda só vai ser usada se houver o dado q vem da API, a segunda class apenas
                 irá alterar o background-color para q o tipo de cada pokemon fique de acordo com sua respctiva cor */}
             </span>
-            
+
           ))}
         </div>
 
