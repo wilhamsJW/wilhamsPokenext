@@ -16,11 +16,14 @@ export default function Card({pokemon}) {
                 height="140"
                 alt={pokemon.name} 
              />
-             <p className={styles.id}>#{pokemon.id}</p>
+             <div className={styles.container_id}>
+                <p className={styles.id}>#{pokemon.id}</p>
+             </div>
              <h3 className={styles.title}>{pokemon.name}</h3>
              <Link className={styles.btn} href={`/pokemon/${pokemon.id}`}>Detalhes</Link>
              {/**<Link href={`/test`}>Teste rota</Link>*/}
              {/** Explicação no readme sobre este href de rota dinãmica */}
+             {/** /pokemon/ é minha pasta criada dentro de pages, ela q retorna a roda dinâmica */}
         </div>
     )
 }
