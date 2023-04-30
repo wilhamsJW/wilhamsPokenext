@@ -1,16 +1,38 @@
 .card {
-    display: flex;
-    justify-content: center; /** alinha elementos no centro do card */
-    align-items: center; /** alinha elementos no centro mas no eixo vertical */
-    flex-direction: column; /** O padrão da pagina é um elemento ao lado do outro, mas com essa propriedade ele fica um abaixo do outro */
+    display: grid;
+    gap: .1rem;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     padding: 2em 1em;
     margin-bottom: 2em;
-    width: 23%;
     border-radius: 1em; /** arredonda ponta dos cards */
     border: 2px solid #b8403a; /** adiciona borda nos cards com esta cor */ 
     box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.8); /** efeito de card levitando, muito usado em qq sistema */
     background-color: #333333;
     color: #fff;
+}
+
+/** tive que adicionar outra div ao redor do número do pokemon para que esta pudesse centralizar
+ e não apenas isso, ele não poderia ficar igual os outros elementos, ela teria q ficar bem menor
+ e no meio, e isso não estava sendo corrigido apenas com width
+ 
+ Então o que deixou o card do numero menorzinho e centralizado foi o ato de criar uma nova div
+ ao redor do elemento e configurar as propriedades da class abaixo: .container_id 
+ 
+ Olhe o meu Codepen e verão este exemplo entre outros: https://codepen.io/wilhamsjw/pen/wvJjLeM?editors=1100*/
+                             /**********
+                             * ENGLISH *
+                             ***********/
+ /** I had to add another div around the Pokemon number so that it could be centered. Not only that, 
+ but it couldn't be the same size as the other elements; it had to be much smaller and positioned in the middle.
+ This couldn't be achieved by just adjusting the width.
+
+Therefore, what made the number on the card smaller and centered was creating a new div around the element and 
+configuring the properties of the class below: .container_id.
+
+Check out my Codepen and you will see this example among others: https://codepen.io/wilhamsjw/pen/wvJjLeM?editors=1100. */
+.container_id {
+    display: grid;
+    place-items: center;
 }
 
 .card .id {
@@ -19,18 +41,19 @@
     border-radius: 5px;
     padding: 5px;
     color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .card .title {
+    display: grid;
+    place-items: center;
     text-transform: capitalize; /** deixa primeira letra do texto maiúscula */
     margin-bottom: 1em;
     font-size: 1.43m;
 }
 
 .card .btn {
+    display: grid;
+    place-items: center;
     text-decoration: none;
     background-color: #fff;
     color: #222;
