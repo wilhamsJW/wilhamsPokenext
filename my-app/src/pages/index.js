@@ -25,7 +25,7 @@ export async function getStaticProps() { // Função nativa do Next.js que busca
   // English
   // We are limiting here to only bring 251 data, so as not to make the site load too heavy. However, there are some sites that will have to present all the data, and what to do? We would use the fallback to help us with that (I talked a little about fallback in my project called Next.JS: https://github.com/wilhamsJW/next.js/commit/b1e66123a0163322ef83aecb1009dc6d55927b0e). So, this would not be up to Prerendering, we should limit the number of page rendering, leaving 1000 pages, for example, then leaving it up to the loading, with a click, and the user would only see those other pages when clicking and thus would load the page instantly.
 
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=251`)
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=150`)
   const data = await res.json()
 
   //data.results.map((item: Pokemon, index: number ) => {
