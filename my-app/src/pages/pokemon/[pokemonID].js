@@ -56,7 +56,7 @@ export default function Pokemon({ data }) {
   // Next automaticamente entende que esse parâmetro { data } é da função getStaticProps()
   return (
     <>
-    {/** Adicionamos esse if em conjunto com fallaback true para buscar dados nao renderizados
+    {/** Adicionamos esse if em conjunto com fallback true para buscar dados nao renderizados
      * We add this if in conjunction with fallaback true to fetch unrendered data */}
     {useRouter().isFallback && (<div className={styles.loading}><div className={styles.loadingAux}></div></div>)}
 
