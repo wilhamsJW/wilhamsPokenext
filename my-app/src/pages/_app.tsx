@@ -3,10 +3,17 @@ import type { AppProps } from 'next/app'
 
 import Layout from '../../components/Layout'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} /> {/** renderiza o que está dentro do index.tsx */}
-    </Layout>
+    <QueryClientProvider client={queryClient}> {/** default React query */}
+      <Layout>
+        <Component {...pageProps} /> {/** renderiza o que está dentro do index.tsx */}
+      </Layout>
+    </QueryClientProvider>
+
   )
 }
