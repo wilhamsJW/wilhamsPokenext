@@ -12,13 +12,16 @@ import { useQuery } from '@tanstack/react-query'
   export default function Pokemon() { // with React Query
 
     const idPokemon = useRouter().query.pokemonID
-    const { isLoading, error, data } = useQuery({
-      queryKey: ['qqcois'],
+    const { isLoading, error, data, refetch } = useQuery({
+      queryKey: ['pokemon', idPokemon],
       queryFn: () =>
         fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`).then(
           (res) => res.json(),
         ),
-    })
+      staleTime: 4000, // Dados em cache são considerados desatualizados após 4 segundos
+      retry: 3, // Tenta fazer a consulta novamente até 3 vezes em caso de falha
+      refetchOnWindowFocus: false, // para evitar que consultas sejam realizadas quando o usuário está ausente do site.
+    });
 
     if (error) return 'An error has occurred: ' + error.message
 
