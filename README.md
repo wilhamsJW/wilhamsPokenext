@@ -97,3 +97,41 @@ origin  https://github.com/wilhamsJW/wilhamsPokenext.git (push)
 vercel  https://wilhams-pokenext.vercel.app/ (push)
 
 depois é só add o arquivo alterado, Commitar e dá um `git push` e será atualizado no git e na vercel
+
+# About React Query
+
+1. npm i @tanstack/react-query
+
+Dentro do `_app.tsx` que é o arquivo q renderiza todas as páginas, importamos as propriedades necessárias:
+
+2. `import { QueryClient, QueryClientProvider } from '@tanstack/react-query'`
+
+Criamos uma const para ser usada dentro do <QueryClientProvider>
+3. `const queryClient = new QueryClient()`
+
+4. Colocar o <QueryClientProvider><app /></QueryClientProvider> ao redor de toda a aplicação para que toda a a aplicação possa ser executada com o React Query
+
+5. Adicionamos isso dentro da tag <QueryClientProvider client={queryClient}><app /></QueryClientProvider>
+
+6. Adicionamos isso no arquivo que estamos fazendo a request de detalhes do pokemon (usamos no arquivo [pokemonID.js])
+`import { useQuery } from '@tanstack/react-query'`
+
+7. Usamos esta função para buscar os dados (ela tbm irá armazernar os dados em cache interno e retornar eles de forma muito rápida melhorando o desempenho
+da minha aplicação, dito isso afirmo que não preciso mais do gatStaticPaths pois ele pré rednderiza os dados e o reacr query faz isso de uma melhor forma):
+
+`const { isLoading, error, data } = useQuery({`
+      `queryKey: ['qqcois'],`
+      `queryFn: () =>`
+        `fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`).then(`
+          `(res) => res.json(),`
+        `),`
+    `})`
+
+#### Sobre getStaticPAths:
+No entanto, se a sua API retorna dados dinâmicos que mudam com frequência, então você não precisará do getStaticPaths. Nesse caso, você pode usar o React Query para gerenciar o estado dos dados e fazer as requisições para a API sempre que necessário. O React Query possui um mecanismo de cache embutido, que permite armazenar os dados em cache para acessá-los mais rapidamente em chamadas subsequentes. Isso ajuda a melhorar o desempenho da sua aplicação, mesmo que os dados sejam dinâmicos e mudem com frequência.
+
+Em resumo, o uso do getStaticPaths depende do tipo de dados que você está trabalhando e da sua estratégia de pré-renderização. Para dados estáticos que não mudam com frequência, o getStaticPaths pode ser útil para pré-renderizar esses dados e melhorar o desempenho da sua aplicação. Para dados dinâmicos que mudam com frequência, o React Query pode ser mais útil para gerenciar o estado dos dados e melhorar o desempenho da sua aplicação.
+
+Criei um arquivo chamado makeWithGetStaticPaths.js para mostrar como é feito com o getStaticProps()
+
+
