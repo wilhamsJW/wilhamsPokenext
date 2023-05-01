@@ -59,7 +59,7 @@ by github
 
 If you don't have something with VERCEL, add it with:
 
-git remote add vercel https://wihams-pokenext.vercel.app/
+`git remote add vercel https://wihams-pokenext.vercel.app/`
 
 This link above is the link of your project given by vercel, it is the DNS.
 
