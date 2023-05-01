@@ -53,7 +53,7 @@ export const getStaticProps = async (context) => {
 
 export default function Pokemon({ data }) {
 
-  // Next automaticamente entende que esse parâmetro é da função getStaticProps()
+  // Next automaticamente entende que esse parâmetro { data } é da função getStaticProps()
   return (
     <>
     {/** Adicionamos esse if em conjunto com fallaback true para buscar dados nao renderizados
