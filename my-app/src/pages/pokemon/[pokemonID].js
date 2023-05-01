@@ -18,8 +18,9 @@ import { useQuery } from '@tanstack/react-query'
         fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`).then(
           (res) => res.json(),
         ),
-      staleTime: 4000, // Dados em cache são considerados desatualizados após 4 segundos
-      retry: 3, // Tenta fazer a consulta novamente até 3 vezes em caso de falha
+      staleTime: 4000, // Dados em cache são considerados desatualizados após 4 segundos e isso faz com que seja exibidos dados em temp real de 4 segund ou o tempo q deseja
+      // para um sistema que tenha muitos usuários fazendo requeste ao mesmo tempo é aconselhável usar o websockets e o react query tem suporte pra websockets
+      retry: 5, // Tenta fazer a consulta novamente até 5 vezes em caso de falha
       refetchOnWindowFocus: false, // para evitar que consultas sejam realizadas quando o usuário está ausente do site.
     });
 
