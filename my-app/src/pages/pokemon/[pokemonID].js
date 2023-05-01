@@ -6,6 +6,8 @@ import Link from "next/link";
 
 import { useRouter } from "next/router";
 
+import { useQuery } from '@tanstack/react-query'
+
 // Faz mapeamento geral dos dados
 // estou passando todos os meus paths para função para q possa pré renderizar
 export const getStaticPaths = async () => {
@@ -37,21 +39,32 @@ export const getStaticPaths = async () => {
   };
 };
 
+/**************************************************************************
+ * ************* Removed getStaticProps to do with React Query ************
+ **************************************************************************/
+
 // faz mapeamento um a um dos dados
-export const getStaticProps = async (context) => {
-  // esse context é basicamente o que criamos acima, por isso acessamos: context.params.pokemonID
-  //que é o mesmo nome q coloamos acima
-  const id = context.params.pokemonID;
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+// export const getStaticProps = async (context) => {
+//   // esse context é basicamente o que criamos acima, por isso acessamos: context.params.pokemonID
+//   //que é o mesmo nome q coloamos acima
+//   const id = context.params.pokemonID;
+//   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
 
-  const data = await res.json();
+//   const data = await res.json();
 
-  return {
-    props: { data },
-  };
-};
+//   return {
+//     props: { data },
+//   };
+// };
 
-export default function Pokemon({ data }) {
+/**************************************************************************
+ * ************************ With React Query ******************************
+ **************************************************************************/
+
+
+
+//export default function Pokemon({ data }) { Used with getStaticProps()
+  export default function Pokemon() { // with React Query
 
   // Next automaticamente entende que esse parâmetro { data } é da função getStaticProps()
   return (
