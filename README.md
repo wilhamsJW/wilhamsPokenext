@@ -132,6 +132,4 @@ No entanto, se a sua API retorna dados dinâmicos que mudam com frequência, ent
 
 Em resumo, o uso do getStaticPaths depende do tipo de dados que você está trabalhando e da sua estratégia de pré-renderização. Para dados estáticos que não mudam com frequência, o getStaticPaths pode ser útil para pré-renderizar esses dados e melhorar o desempenho da sua aplicação. Para dados dinâmicos que mudam com frequência, o React Query pode ser mais útil para gerenciar o estado dos dados e melhorar o desempenho da sua aplicação.
 
-Criei um arquivo chamado makeWithGetStaticPaths.js para mostrar como é feito com o getStaticProps()
-
 
