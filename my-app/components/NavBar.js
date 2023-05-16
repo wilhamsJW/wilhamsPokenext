@@ -17,6 +17,9 @@ export default function NavBar() {
                 <li>
                     <Link href="/about">About</Link>
                 </li>
+                <li>
+                    <Link href="/usingreactquery">React Query</Link>
+                </li>
             </ul>
         </nav>
     )
