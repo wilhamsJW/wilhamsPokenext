@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import { useRouter } from "next/router";
 
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from "react-query";
 
 // Faz mapeamento geral dos dados
 // estou passando todos os meus paths para função para q possa pré renderizar
@@ -28,14 +28,14 @@ export const getStaticPaths = async () => {
   return {
     paths,
     //fallback: false /** é padrão do next.js porém pode ser usado como true, veja documentação */,
-    fallback: true
+    fallback: true,
     /** Agora estou usando como true pq quero pegar dados da API não renderizado
      * para que o site não fique tão lento adicionei um limit no endpoint de 180 elementos e esses
      * serão os dados pré renderizados e não demora a carregar para o usuário ver, porém existem mais páginas no site,
      * para fazer com que eles apareçam apenas quando solicitadas eu configuro fallback para true e desta forma consigo pegar qq elemento vindo da API
      *
      * Com fallback: false só é permitido pegar 180 elementos, se eu tentar colocar na url 181 irá retornar 404 página de erro
-     */,
+     */
   };
 };
 
@@ -53,76 +53,88 @@ export const getStaticProps = async (context) => {
   };
 };
 
+// with React Query
+// export default function Pokemon({ dataProps }) { essa é a props passada quando pegamos do getStaticProps - porém eu uso o React Query e devo mapear os dados dele para poder recupera-los em cache
+export default function Pokemon() {
+  // com React query eu renderizo os dados vindo da chamada dele
+  
+  // Utilizando React Query
+  const idPokemon = useRouter().query.pokemonID;
+  const { isLoading, error, data, refetch } = useQuery({
+    queryKey: ["pokemon", idPokemon],
+    queryFn: () =>
+      fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`).then((res) =>
+        res.json()
+      ),
+    staleTime: 4000, // Dados em cache são considerados desatualizados após 4 segundos e isso faz com que seja exibidos dados em temp real de 4 segund ou o tempo q deseja
+    // para um sistema que tenha muitos usuários fazendo requeste ao mesmo tempo é aconselhável usar o websockets e o react query tem suporte pra websockets
+    retry: 5, // Tenta fazer a consulta novamente até 5 vezes em caso de falha
+    refetchOnWindowFocus: false, // para evitar que consultas sejam realizadas quando o usuário está ausente do site.
+  });
 
-  // with React Query
-  export default function Pokemon({ dataProps }) {
-
-    const idPokemon = useRouter().query.pokemonID
-    const { isLoading, error, data, refetch } = useQuery({
-      queryKey: ['pokemon', idPokemon],
-      queryFn: () =>
-        fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`).then(
-          (res) => res.json(),
-        ),
-      staleTime: 4000, // Dados em cache são considerados desatualizados após 4 segundos e isso faz com que seja exibidos dados em temp real de 4 segund ou o tempo q deseja
-      // para um sistema que tenha muitos usuários fazendo requeste ao mesmo tempo é aconselhável usar o websockets e o react query tem suporte pra websockets
-      retry: 5, // Tenta fazer a consulta novamente até 5 vezes em caso de falha
-      refetchOnWindowFocus: false, // para evitar que consultas sejam realizadas quando o usuário está ausente do site.
-    });
-
-    if (error) return 'An error has occurred: ' + error.message
+  if (error) return "An error has occurred: " + error.message;
 
   return (
     <>
-    {useRouter().isFallback && (<div className={styles.loading}><div className={styles.loadingAux}></div></div>)}
+      {/** validação feita se usar os dados do getStaticProps */}
+      {/* {useRouter().isFallback && (<div className={styles.loading}><div className={styles.loadingAux}></div></div>)} */}
+      {isLoading && (
+        <div className={styles.loading}>
+          <div className={styles.loadingAux}></div>
+        </div>
+      )}
 
-    {!useRouter().isFallback && <div className={styles.pokemon_container}>
-      <h1 className={styles.title}>{dataProps.name}</h1>
-      <Image
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${idPokemon}.png`}
-        width="200"
-        height="200"
-        alt={dataProps.name}
-      />
+      {/** validação feita se usar os dados do getStaticProps */}
+      {/* {!useRouter().isFallback && <div className={styles.pokemon_container}> */}
+      {!isLoading && (
+        <div className={styles.pokemon_container}>
+          <h1 className={styles.title}>{data.name}</h1>
+          <Image
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${idPokemon}.png`}
+            width="200"
+            height="200"
+            alt={data.name}
+          />
 
-      <div>
-        <h3>Número:</h3>
-        <p>#&nbsp;&nbsp;{dataProps.id}</p>
-      </div>
+          <div>
+            <h3>Número:</h3>
+            <p>#&nbsp;&nbsp;{data.id}</p>
+          </div>
 
-      <div>
-        <h3>Tipo:</h3>
-        <div className={styles.types_container}>
-          #&nbsp;
-          {dataProps.types.map((e, i) => (
-            <span
-              key={i}
-              className={`${styles.type} ${styles["type_" + e.type.name]}`}
-            >
-              &nbsp;{e.type.name}
-              {/** passei duas classes na mesma tag, a primeira sempre vai ser usada e a segunda só vai ser usada se houver o dado q vem da API, a segunda class apenas
+          <div>
+            <h3>Tipo:</h3>
+            <div className={styles.types_container}>
+              #&nbsp;
+              {data.types.map((e, i) => (
+                <span
+                  key={i}
+                  className={`${styles.type} ${styles["type_" + e.type.name]}`}
+                >
+                  &nbsp;{e.type.name}
+                  {/** passei duas classes na mesma tag, a primeira sempre vai ser usada e a segunda só vai ser usada se houver o dado q vem da API, a segunda class apenas
                 irá alterar o background-color para q o tipo de cada pokemon fique de acordo com sua respctiva cor */}
-            </span>
-          ))}
-        </div>
+                </span>
+              ))}
+            </div>
 
-        <div className={styles.data_container}>
-          <div className={styles.data_height}>
-            <h4>Atura:</h4>
-            <p>{dataProps.height * 10} cm</p>
+            <div className={styles.data_container}>
+              <div className={styles.data_height}>
+                <h4>Atura:</h4>
+                <p>{data.height * 10} cm</p>
+              </div>
+
+              <div className={styles.data_weight}>
+                <h4>Peso:</h4>
+                <p>{data.weight / 10} kg</p>
+              </div>
+            </div>
+
+            <Link href={"/"} className={styles.back}>
+              Back
+            </Link>
           </div>
-
-          <div className={styles.data_weight}>
-            <h4>Peso:</h4>
-            <p>{dataProps.weight / 10} kg</p>
-          </div>
         </div>
-
-        <Link href={"/"} className={styles.back}>
-          Back
-        </Link>
-      </div>
-    </div>}
+      )}
     </>
   );
 }
