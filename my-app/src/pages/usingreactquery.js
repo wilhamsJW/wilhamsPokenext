@@ -1,43 +1,47 @@
-import { useQueryClient, useQuery } from "react-query";
+import { useQueryClient, QueryClient } from "react-query";
 
-let dataCurrentPokemon
-const searchQuery = async () => {
-  const queryClient = useQueryClient();
-  //const queryData = await queryClient.getQueryData(['pokemon', 3])
-  // const queryCache = await queryClient.getQueryCache().queries //mostra dados
-  dataCurrentPokemon = await queryClient.getQueriesData();
-  console.log("dataCurrentPokemon 00", dataCurrentPokemon);
+import { useState } from "react";
 
-
-  return dataCurrentPokemon[0][1];
-};
-
-//https://tanstack.com/query/v3/docs/react/guides/ssr
+import styles from "../styles/Pokemon.module.css";
 
 export default function UsingReactQuery() {
 
-  const { dataCurrentPokemon } = useQuery('xxxxx', async () => {
-        return await searchQuery()
-  })
-    //dataCurrentPokemon = await searchQuery();
-    //console.log("dataCurrentPokemon", dataCurrentPokemon);
-
-  console.log("dataCurrentPokemon", dataCurrentPokemon);
-
-  //dataCurrentPokemon();
+  // const [data, setData] = useState(null);
+  // const [isFetching, setIsFetching] = useState(null);
+  // let queryCache
+  // Aqui estou pegando dados diretamente do cache do react query, mas não aconseolho por dá muito trabalho em
+  // manipular os estados e ficou dando falha no carregamento em buscar dados do cache
+  // use o react query apenas para comandar requisições q é isso q ele serve
+  // const searchQuery = async () => {
+  //   let queryClient = new QueryClient();
+  //   queryClient = useQueryClient();
+  //   queryCache = await queryClient.getQueryCache(); //mostra dados
+  //   setData(queryCache?.queries[0]?.state?.data?.results[4]?.name);
+  //   setIsFetching(queryCache.queries[0]?.state?.isFetching);
+  // };
+  // searchQuery();
 
   return (
     <>
-      {<><h2>
-        Aqui estou mostrando o acesso dos dados sendo buscados pelo React query
-        e sendo acessado em qualquer lugar da minha aplicação
-      </h2>
-      <br />
-      <br />
+      {/* {(
+        <div className={styles.loading}>
+          <div className={styles.loadingAux}></div>
+        </div>
+      )} */}
+      {(
+        <div>
+          <h2>
+            Aqui estou mostrando o acesso dos dados sendo buscados pelo React
+            query e sendo acessado em qualquer lugar da minha aplicação
+          </h2>
+          <br />
+          <br />
 
-      <h4>Name:{dataCurrentPokemon?.name}</h4>
-      <h4>Peso:{dataCurrentPokemon?.weight}</h4>
-      <h4>Altura:{dataCurrentPokemon?.height}</h4></>}
+          <h4>Name: {"Dados não carregados..."}</h4>
+          <h4>Peso:</h4>
+          <h4>Altura:</h4>
+        </div>
+      )}
     </>
   );
 }

@@ -11,7 +11,7 @@ import { useQuery } from "react-query";
 // Faz mapeamento geral dos dados
 // estou passando todos os meus paths para função para q possa pré renderizar
 export const getStaticPaths = async () => {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=180`);
+  const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=180');
   const data = await res.json();
 
   // params
@@ -54,58 +54,61 @@ export const getStaticProps = async (context) => {
 };
 
 // with React Query
-// export default function Pokemon({ dataProps }) { essa é a props passada quando pegamos do getStaticProps - porém eu uso o React Query e devo mapear os dados dele para poder recupera-los em cache
-export default function Pokemon() {
+ export default function Pokemon({ dataProps }) { // essa é a props passada quando pegamos do getStaticProps - porém eu uso o React Query e devo mapear os dados dele para poder recupera-los em cache
+//export default function Pokemon() { // quando quero pegar do react query uso assim e vejo se os dados q estou renderizando é do react query
   // com React query eu renderizo os dados vindo da chamada dele
   
   // Utilizando React Query
   const idPokemon = useRouter().query.pokemonID;
-  const { isLoading, error, data, refetch } = useQuery({
-    queryKey: ["pokemon", idPokemon],
-    queryFn: () =>
-      fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`).then((res) =>
-        res.json()
-      ),
-    staleTime: 4000, // Dados em cache são considerados desatualizados após 4 segundos e isso faz com que seja exibidos dados em temp real de 4 segund ou o tempo q deseja
-    // para um sistema que tenha muitos usuários fazendo requeste ao mesmo tempo é aconselhável usar o websockets e o react query tem suporte pra websockets
-    retry: 5, // Tenta fazer a consulta novamente até 5 vezes em caso de falha
-    refetchOnWindowFocus: false, // para evitar que consultas sejam realizadas quando o usuário está ausente do site.
-  });
+  
+  // const { isLoading, error, data, refetch } = useQuery({
+  //   queryKey: ["pokemon", idPokemon],
+  //   queryFn: () => fetch('https://pokeapi.co/api/v2/pokemon/?limit=180').then((res) => // a url da API que retornar os dados, são esses dados que ficarão armazenado em cache
+  //       res.json()
+  //     ),
+  //   //staleTime: 14000, // Dados em cache são considerados desatualizados após 4 segundos e isso faz com que seja exibidos dados em temp real de 4 segund ou o tempo q desejar em milisegundos
+  //   // para um sistema que tenha muitos usuários fazendo requeste ao mesmo tempo é aconselhável usar o websockets e o react query tem suporte pra websockets
+  //   //retry: 5, // Tenta fazer a consulta novamente até 5 vezes em caso de falha
+  //   refetchOnWindowFocus: false, // para evitar que consultas sejam realizadas quando o usuário está ausente do site.
+  // });
 
-  if (error) return "An error has occurred: " + error.message;
+  // if (error) return "An error has occurred: " + error.message;
 
   return (
     <>
-      {/** validação feita se usar os dados do getStaticProps */}
-      {/* {useRouter().isFallback && (<div className={styles.loading}><div className={styles.loadingAux}></div></div>)} */}
-      {isLoading && (
+      {/** Carregamento se fosse feito com o isLoading no caso é isFallback getStaticProps */}
+      {useRouter().isFallback && (<div className={styles.loading}><div className={styles.loadingAux}></div></div>)}
+
+      {/** Carregamento se fosse feito com o isLoading do React query */}
+      {/* {isLoading && (
         <div className={styles.loading}>
           <div className={styles.loadingAux}></div>
         </div>
-      )}
+      )} */}
 
-      {/** validação feita se usar os dados do getStaticProps */}
       {/* {!useRouter().isFallback && <div className={styles.pokemon_container}> */}
-      {!isLoading && (
-        <div className={styles.pokemon_container}>
-          <h1 className={styles.title}>{data.name}</h1>
+
+      {/* {!isLoading && ( <div className={styles.pokemon_container}> */}  {/** Carregamento se fosse feito com o isLoading do React query */}
+
+        {!useRouter().isFallback && (<div className={styles.pokemon_container}> {/** Carregamento se fosse feito com o isLoading no caso é isFallback getStaticProps */}
+          <h1 className={styles.title}>{dataProps.name}</h1>
           <Image
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${idPokemon}.png`}
             width="200"
             height="200"
-            alt={data.name}
+            alt={dataProps.name}
           />
 
           <div>
             <h3>Número:</h3>
-            <p>#&nbsp;&nbsp;{data.id}</p>
+            <p>#&nbsp;&nbsp;{dataProps.id}</p>
           </div>
 
           <div>
             <h3>Tipo:</h3>
             <div className={styles.types_container}>
               #&nbsp;
-              {data.types.map((e, i) => (
+              {dataProps.types.map((e, i) => (
                 <span
                   key={i}
                   className={`${styles.type} ${styles["type_" + e.type.name]}`}
@@ -120,12 +123,12 @@ export default function Pokemon() {
             <div className={styles.data_container}>
               <div className={styles.data_height}>
                 <h4>Atura:</h4>
-                <p>{data.height * 10} cm</p>
+                <p>{dataProps.height * 10} cm</p>
               </div>
 
               <div className={styles.data_weight}>
                 <h4>Peso:</h4>
-                <p>{data.weight / 10} kg</p>
+                <p>{dataProps.weight / 10} kg</p>
               </div>
             </div>
 
