@@ -73,7 +73,7 @@ vercel https://wihams-pokenext.vercel.app/ (push)
 
 then just add the changed file, commit and give a `git push` and it will be updated in git and vercel
 
-### Como atualizar o proejeto na vercel
+### Como atualizar o projeto na vercel
 
 Primeiro verifique se vc tem um projeto vercel add como o comando:
 
