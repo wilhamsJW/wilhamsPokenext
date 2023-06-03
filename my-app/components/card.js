@@ -6,7 +6,7 @@ import styles from '../src/styles/Card.module.css'
 
 // o link da imagem foi adicionado em next config, para que o next entenda e permita q se trata de uma imagem externa
 
-// Esse parãmetro pokemon tá vindo doa rquivo index.tsx
+// Esse parâmetro pokemon tá vindo do arquivo index.tsx
 export default function Card({pokemon}) {
     return (
         <div className={styles.card}>
