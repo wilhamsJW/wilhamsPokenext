@@ -1,10 +1,15 @@
 import { useQueryClient, QueryClient } from "react-query";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import styles from "../styles/Pokemon.module.css";
 
+import PokemonContext from '../contexts/dataPokemon-context'
+
 export default function UsingReactQuery() {
+
+  const data = useContext(PokemonContext)
+  console.log('data', data)
 
   // const [data, setData] = useState(null);
   // const [isFetching, setIsFetching] = useState(null);
@@ -37,7 +42,7 @@ export default function UsingReactQuery() {
           <br />
           <br />
 
-          <h4>Name: {"Dados não carregados..."}</h4>
+          <h4>Name de todos pokemons: {"Dados não carregados..."}</h4>
           <h4>Peso:</h4>
           <h4>Altura:</h4>
         </div>
