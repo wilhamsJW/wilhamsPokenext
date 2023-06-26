@@ -14,7 +14,7 @@ export default function UsingReactQuery() {
   // const [data, setData] = useState(null);
   // const [isFetching, setIsFetching] = useState(null);
   // let queryCache
-  // Aqui estou pegando dados diretamente do cache do react query, mas não aconseolho por dá muito trabalho em
+  // Aqui estou pegando dados diretamente do cache do react query, mas não aconselho por dá muito trabalho em
   // manipular os estados e ficou dando falha no carregamento em buscar dados do cache
   // use o react query apenas para comandar requisições q é isso q ele serve
   // const searchQuery = async () => {
@@ -35,16 +35,21 @@ export default function UsingReactQuery() {
       )} */}
       {(
         <div>
-          <h2>
+          <h1>
             Aqui estou mostrando o acesso dos dados sendo buscados pelo React
             query e sendo acessado em qualquer lugar da minha aplicação
-          </h2>
+          </h1>
           <br />
           <br />
 
-          <h4>Name de todos pokemons: {"Dados não carregados..."}</h4>
-          <h4>Peso:</h4>
-          <h4>Altura:</h4>
+          <h4>Name de 4 pokemons sendo exibidos apenas para mostar o uso do useContext com UsingReactQuery,
+            <br /> dessa forma consigo ter os dados disponíveis em qq lugar da minha aplicação</h4>
+          <br /><br /><br />
+          <h4>Nome: {data[0].name}</h4><br />
+          <h4>Nome: {data[1].name}</h4><br />
+          <h4>Nome: {data[2].name}</h4><br />
+          <h4>Nome: {data[3].name}</h4><br />
+          <h4>Nome: {data[4].name}</h4><br />
         </div>
       )}
     </>
