@@ -45,11 +45,11 @@ export default function UsingReactQuery() {
           <h4>Name de 4 pokemons sendo exibidos apenas para mostar o uso do useContext com UsingReactQuery,
             <br /> dessa forma consigo ter os dados disponíveis em qq lugar da minha aplicação</h4>
           <br /><br /><br />
-          <h4>Nome: {data[0].name}</h4><br />
-          <h4>Nome: {data[1].name}</h4><br />
-          <h4>Nome: {data[2].name}</h4><br />
-          <h4>Nome: {data[3].name}</h4><br />
-          <h4>Nome: {data[4].name}</h4><br />
+          <h4>Nome: {data[0]?.name}</h4><br />
+          <h4>Nome: {data[1]?.name}</h4><br />
+          <h4>Nome: {data[2]?.name}</h4><br />
+          <h4>Nome: {data[3]?.name}</h4><br />
+          <h4>Nome: {data[4]?.name}</h4><br />
         </div>
       )}
     </>
